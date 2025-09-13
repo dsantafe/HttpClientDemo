@@ -1,0 +1,11 @@
+﻿global using HttpClientDemo;
+global using HttpClientDemo.DTOs;
+global using HttpClientDemo.Services;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Http.Resilience;
+global using Microsoft.Extensions.Logging;
+global using System.Net.Http.Headers;
+global using System.Text;
+global using System.Text.Json;
+global using System.Xml.Serialization;
