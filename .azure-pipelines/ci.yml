@@ -1,0 +1,44 @@
+trigger:
+  branches:
+    include:
+      - master
+
+variables:
+- group: DevWorkspace-VG
+  imageName: "httpclientdemo"
+  repository: "$(acrName).azurecr.io/$(imageName)"
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+# 1. Checkout del repo
+- checkout: self
+
+# 2. Login en ACR usando el service connection
+- task: Docker@2
+  displayName: "Login to ACR"
+  inputs:
+    command: login
+    containerRegistry: "appworkspacedev-acr-sc"
+
+# 3. Build de la imagen Docker
+- task: Docker@2
+  displayName: "Build Docker Image"
+  inputs:
+    command: build
+    Dockerfile: "**/Dockerfile"
+    repository: "$(repository)"
+    tags: |
+      latest
+      $(Build.BuildId)
+
+# 4. Push de la imagen al ACR
+- task: Docker@2
+  displayName: "Push Docker Image"
+  inputs:
+    command: push
+    repository: "$(repository)"
+    tags: |
+      latest
+      $(Build.BuildId)
