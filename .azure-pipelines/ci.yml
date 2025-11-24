@@ -5,8 +5,12 @@ trigger:
 
 variables:
 - group: DevWorkspace-VG
-  imageName: "httpclientdemo"
-  repository: "$(acrName).azurecr.io/$(imageName)"
+
+- name: imageName
+  value: "httpclientdemo"
+
+- name: repository
+  value: "$(acrName).azurecr.io/$(imageName)"
 
 pool:
   vmImage: "ubuntu-latest"
